@@ -1,0 +1,19 @@
+{
+  "name": "quiddity",
+  "version": "1.0.0",
+  "description": "Simple Queue Service that uses MongoDb to store messages",
+  "main": "app.js",
+  "scripts": {
+    "test": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/thatskevinjain/quiddity.git"
+  },
+  "author": "Kevin Jain",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/thatskevinjain/quiddity/issues"
+  },
+  "homepage": "https://gitlab.com/thatskevinjain/quiddity#README"
+}
