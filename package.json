@@ -17,6 +17,8 @@
   },
   "homepage": "https://gitlab.com/thatskevinjain/quiddity#README",
   "dependencies": {
-    "express": "^4.17.1"
+    "bson-ext": "^2.0.3",
+    "express": "^4.17.1",
+    "mongodb": "^3.3.2"
   }
 }
