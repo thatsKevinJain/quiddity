@@ -3,7 +3,8 @@ const MongoClient = require('mongodb').MongoClient
 const assert = require('assert')
 
 // Connection URL
-const url = process.env.MONGO_URL ||'mongodb://localhost:27017/quiddity'
+const url = process.env.MONGO_URL || 'mongodb://localhost:27017/'
+const dbName = process.env.DB_URL || 'quiddity'
 
 // Pass options to the client //
 var options = {
@@ -11,17 +12,22 @@ var options = {
 }
 
 var _db;
+var client;
 
-// Use connect method to connect to the Server
-
+// Mongo Driver //
 var mongo = {
-	connect: () => {
+	connect(){
 		return new Promise((resolve, reject) => {
+
 			MongoClient.connect(url, options)
-			.then((db) => {
+			.then((clientInstance) => {
 				console.log("Connected successfully to Quiddity DB")
-				_db = db
-				resolve(db)
+
+				// Set the global instances //
+				client = clientInstance
+				_db = client.db(dbName)
+
+				resolve(_db)
 			})
 			.catch((err) => {
 				console.log(err)
@@ -30,7 +36,18 @@ var mongo = {
 		})
 	},
 
-	getDb: () => _db
+	getDb(){
+		return new Promise((resolve, reject) => {
+			if(this.isConnected())
+				resolve(_db)
+			else
+				this.connect().then(resolve).catch(reject)
+		})
+	},
+
+	isConnected(){
+		return !!client && !!client.topology && client.topology.isConnected()
+	}
 }
 
 module.exports = mongo
