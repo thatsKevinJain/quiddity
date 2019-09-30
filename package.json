@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://gitlab.com/thatskevinjain/quiddity/issues"
   },
-  "homepage": "https://gitlab.com/thatskevinjain/quiddity#README"
+  "homepage": "https://gitlab.com/thatskevinjain/quiddity#README",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
