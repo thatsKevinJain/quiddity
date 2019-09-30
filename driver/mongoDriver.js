@@ -50,4 +50,6 @@ var mongo = {
 	}
 }
 
+mongo.connect()
+
 module.exports = mongo
