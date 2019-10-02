@@ -20,7 +20,7 @@ module.exports = {
 
 	addMessage: function(req, res){
 		
-		req.db.collection('test').insertOne({mobile:req.query.mobile})
+		req.db.collection('test').insertOne(req.body)
 		.then((data) => {
 			res.json(data)
 		})

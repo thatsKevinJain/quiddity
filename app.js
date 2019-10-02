@@ -5,10 +5,12 @@ var mongo = require('./driver/mongoDriver')
 const express = require('express')
 const app = express()
 const port = process.env.PORT || 3000
-const mongoMiddleware = require('./middleware/mongoMiddleware')
 
+app.use(express.json())
+// for parsing application/x-www-form-urlencoded
+app.use(express.urlencoded({ extended: true }))
 // To use mongodb anywhere in program, use this mongo middleware //
-app.use(mongoMiddleware)
+app.use(require('./middleware/mongoMiddleware'))
 
 // Add all routes //
 require('./middleware/routeOptions')(app)
