@@ -1,7 +1,5 @@
 // Connect to DB //
 var mongo = require('./driver/mongoDriver')
-// Figlet //
-var figlet = require('figlet')
 
 // Create a server //
 const express = require('express')
@@ -19,14 +17,7 @@ require('./middleware/routeOptions')(app)
 
 mongo.getDb()
 .then((db) => {
-	figlet('Quiddity', function(err, data) {
-		if (err) {
-			console.log('Something went wrong...');
-			console.dir(err);
-			return;
-		}
-		console.log(data)
-	});
+	require('./api/services/figlet')
 	app.listen(port, () => console.log(`Quiddity listening on port ${port}!`))
 })
 .catch((err) => {
