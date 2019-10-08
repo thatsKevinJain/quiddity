@@ -1,8 +1,11 @@
+// Collection - Queue //
+const QUEUE = 'queue'
+
 module.exports = {
 
 	fetchMessage: function(req, res){
 
-		req.db.collection('test').find({}).toArray()
+		req.db.collection(QUEUE).find({}).toArray()
 		.then((data) => {
 			res.json(data)
 		})
@@ -11,7 +14,7 @@ module.exports = {
 
 	deleteMessage: function(req, res){
 
-		req.db.collection('test').removeOne({})
+		req.db.collection(QUEUE).removeOne({})
 		.then((data) => {
 			res.json(data)
 		})
@@ -20,7 +23,7 @@ module.exports = {
 
 	addMessage: function(req, res){
 		
-		req.db.collection('test').insertOne(req.body)
+		req.db.collection(QUEUE).insertOne(req.body)
 		.then((data) => {
 			res.json(data)
 		})
