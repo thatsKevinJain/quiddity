@@ -13,7 +13,9 @@ module.exports = function(app){
 			var actionCall = require('../api/controller/'+model+"Controller")[action]
 
 			// Add a dynamic route //
-			app.all(route, validation, actionCall)
+			app.get(route, actionCall)
+			app.put(route, validation, actionCall)
+			app.post(route, validation, actionCall)
 		}
 	}
 }
