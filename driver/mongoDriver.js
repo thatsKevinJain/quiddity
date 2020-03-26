@@ -8,7 +8,8 @@ const dbName = process.env.DB_URL || 'quiddity'
 
 // Pass options to the client //
 var options = {
-	useNewUrlParser: true
+	useNewUrlParser: true,
+	useUnifiedTopology: true
 }
 
 var _db;
