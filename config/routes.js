@@ -1,7 +1,7 @@
 module.exports = {
 	Queue: {
-		fetchMessage: true,
-		deleteMessage: true,
-		addMessage: true
+		fetch: true,
+		delete: true,
+		add: true
 	}
 }
