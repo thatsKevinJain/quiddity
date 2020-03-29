@@ -1,5 +1,6 @@
 // This will return a MongoDB instance to interact with the DB //
 const MongoClient = require('mongodb').MongoClient
+const { ObjectId } = require('mongodb')
 const assert = require('assert')
 
 // Connection URL
@@ -27,6 +28,7 @@ var mongo = {
 				// Set the global instances //
 				client = clientInstance
 				_db = client.db(dbName)
+				_db['ObjectId'] = ObjectId
 
 				resolve(_db)
 			})
