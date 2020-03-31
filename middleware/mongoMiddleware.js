@@ -10,6 +10,6 @@ module.exports = function(req, res, next){
 		next()
 	})
 	.catch((err) => {
-		res.status(400).json({msg: ERR_DB_CONNECT})
+		res.status(400).json({message: ERR_DB_CONNECT})
 	})
 }
