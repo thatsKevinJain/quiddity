@@ -1,3 +1,5 @@
+var assertQueryParams = require('../services/assertQueryParams')
+
 module.exports = {
 
 	/*
@@ -11,12 +13,11 @@ module.exports = {
 	add: async function(req, res) {
 
 		try{
+
+			await assertQueryParams(req.query, ['queueName'])
+
 			// Extract the body and query params //
-			if(!(req && req.query && req.query.queueName))
-				throw {message: "Missing param 'queueName'"}
-
 			const queueName = req.query.queueName
-
 			const body = Object.assign({}, req.body)
 
 			// Add metadata //
@@ -49,12 +50,9 @@ module.exports = {
 	fetch: async function(req, res) {
 
 		try{
-			// Extract the body and query params //
-			if(!(req && req.query && req.query.queueName))
-				throw {message: `Missing param "queueName"`}
-			if(!(req && req.query && req.query.agentId))
-				throw {message: `Missing param "agentId"`}
+			await assertQueryParams(req.query, ['queueName','agentId'])
 
+			// Extract the body and query params //
 			const queueName = req.query.queueName
 			const agentId = req.query.agentId
 
@@ -67,7 +65,6 @@ module.exports = {
 				lockedAt: new Date()
 			}
 			data = Object.assign(data, obj)
-			console.log(obj)
 
 			await req.db.collection(queueName).updateOne({_id:data._id}, {$set:obj})
 			
@@ -82,7 +79,7 @@ module.exports = {
 	/*
 		Remove the message from queue - 
 
-		@POST /queue/delete
+		@GET /queue/delete
 
 		@PARAMS - queueName (Name of the collection to insert data)
 				  agentId	(UUID of agent)
@@ -93,20 +90,13 @@ module.exports = {
 
 		try{
 			// Extract the body and query params //
-			if(!(req && req.query && req.query.queueName))
-				throw {message: `Missing param "queueName"`}
-
-			if(!(req && req.query && req.query.agentId))
-				throw {message: `Missing param "agentId"`}
-
-			if(!(req && req.query && req.query._id))
-				throw {message: `Missing param "_id"`}
+			await assertQueryParams(req.query, ['queueName','agentId','_id'])
 
 			const queueName = req.query.queueName
 			const agentId = req.query.agentId
-			const _id = req.query._id
+			const _id = req.db.ObjectId(req.query._id)
 
-			const data = await req.db.collection(queueName).removeOne({_id:req.db.ObjectId(_id)})
+			const data = await req.db.collection(queueName).removeOne({_id:_id})
 			
 			return res.json(data)
 		}
