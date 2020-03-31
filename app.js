@@ -17,7 +17,7 @@ require('./middleware/routeOptions')(app)
 
 mongo.getDb()
 .then((db) => {
-	require('./api/services/figlet')
+	require('./api/services/figlet')()
 	app.listen(port, () => console.log(`Quiddity listening on port ${port}!`))
 })
 .catch((err) => {

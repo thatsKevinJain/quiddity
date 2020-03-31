@@ -1,11 +1,16 @@
-var figlet = require('figlet')
-module.exports = figlet('Quiddity', function(err, data) {
-	if (err) {
-		console.log('Something went wrong...')
-		console.dir(err)
-		return
-	}
-	console.log("=========================================")
+
+module.exports = function(){
+
+	const data = 
+`
+=========================================
+   ___        _     _     _ _ _         
+  / _ \\ _   _(_) __| | __| (_) |_ _   _ 
+ | | | | | | | |/ _  |/ _  | | __| | | |
+ | |_| | |_| | | (_| | (_| | | |_| |_| |
+  \\__\\ _\\__,_|_|\\__,_|\\__,_|_|\\__|\\__, |
+                                  |___/ 
+=========================================
+`
 	console.log(data)
-	console.log("=========================================")
-})
+}
