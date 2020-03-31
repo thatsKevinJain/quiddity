@@ -9,13 +9,13 @@ module.exports = function(app){
 		for(var action in routes[model]){
 
 			var route = `/${model.toLowerCase()}/${action}`
-			var validation = require('./validationOptions')(require(`../api/models/${model}`))
 			var actionCall = require('../api/controller/'+model+"Controller")[action]
+			var allowedMethods = routes[model][action]
 
-			// Add a dynamic route //
-			app.get(route, actionCall)
-			app.put(route, validation, actionCall)
-			app.post(route, validation, actionCall)
+			// Add dynamic routes //
+			allowedMethods.forEach(allowedMethod => {
+				app[allowedMethod](route, actionCall)
+			})
 		}
 	}
 }

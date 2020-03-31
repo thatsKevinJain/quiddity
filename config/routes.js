@@ -1,7 +1,12 @@
 module.exports = {
+
+	/*
+		Model name and its allowed API actions methods are added here
+	*/
+
 	Queue: {
-		fetch: true,
-		delete: true,
-		add: true
+		fetch: ['get'],
+		delete: ['put'],
+		add: ['post']
 	}
 }
