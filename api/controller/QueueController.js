@@ -1,4 +1,4 @@
-var assertQueryParams = require('../services/assertQueryParams')
+const commands = require('../commands/index')
 
 module.exports = {
 
@@ -7,32 +7,17 @@ module.exports = {
 
 		@POST /queue/add
 
-		@PARAMS - queueName (Name of the collection to insert data)
-		@BODY - data (Object containing message)
+		@PARAMS 	queueName 	(Name of the collection to insert data)
+		@BODY 		data 		(Object containing message)
 	*/
 	add: async function(req, res) {
 
-		try{
-
-			await assertQueryParams(req.query, ['queueName'])
-
-			// Extract the body and query params //
-			const queueName = req.query.queueName
-			const body = Object.assign({}, req.body)
-
-			// Add metadata //
-			body['createdAt'] = new Date()
-
-			const data = await req.db.collection(queueName).insertOne(body)
-
-			return res.json(data)
-		}
-		catch(err){
-			return res.status(400).json(err)
-		}
+		const response = await commands.pushToQueue(req)
+		
+		return res.json(response)
 	},
 
-	
+
 
 	/*
 		Fetch a message from the queue - 
@@ -41,8 +26,8 @@ module.exports = {
 
 		@GET /queue/fetch
 
-		@PARAMS - queueName (Name of the collection to insert data)
-				  agentId 	(UUID of agent)
+		@PARAMS 	queueName	(Name of the collection to insert data)
+				  	agentId 	(UUID of agent)
 
 		@RESPONSE - data
 	*/
@@ -58,7 +43,7 @@ module.exports = {
 
 			var data = await req.db.collection(queueName).findOne({locked:{$in:[false,null]}})
 
-			// Append the metadata to the object //
+			// Lock the message to maintain exclusivity //
 			var obj = {
 				agentId: agentId,
 				locked: true,
@@ -81,9 +66,9 @@ module.exports = {
 
 		@GET /queue/delete
 
-		@PARAMS - queueName (Name of the collection to insert data)
-				  agentId	(UUID of agent)
-				  _id 		(_id of the message to be deleted)
+		@PARAMS 	queueName 	(Name of the collection to insert data)
+					agentId		(UUID of agent)
+					_id 		(_id of the message to be deleted)
 	*/
 
 	delete: async function(req, res) {
