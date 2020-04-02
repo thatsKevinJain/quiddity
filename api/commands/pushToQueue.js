@@ -26,7 +26,7 @@ module.exports = async function(req){
 		if(response && response.result.ok === 1 && response.insertedCount === 1)
 			return { status: events.MSG_PUSHED }
 		else
-			throw {}
+			throw { message: "MSG_FAILED_TO_PUSH" }
 	}
 	catch(err){
 		return { status: events.MSG_FAILED_TO_PUSH, error: err }

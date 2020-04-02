@@ -7,13 +7,12 @@ module.exports = {
 
 		@POST /queue/add
 
-		@PARAMS 	queueName 	(Name of the collection to insert data)
-		@BODY 		data 		(Object containing message)
+		@param 		queueName 	(Name of the collection to insert data)
+		@body 		data 		(Object containing message)
 	*/
 	add: async function(req, res) {
 
 		const response = await commands.pushToQueue(req)
-		
 		return res.json(response)
 	},
 
@@ -21,43 +20,19 @@ module.exports = {
 
 	/*
 		Fetch a message from the queue - 
-		We will fetch one message from queue and set the agentId of the worker accessing the message
-		and also lock the message to maintain exclusivity
 
-		@GET /queue/fetch
+		@POST /queue/fetch
 
-		@PARAMS 	queueName	(Name of the collection to insert data)
+		@param 		queueName	(Name of the collection to insert data)
 				  	agentId 	(UUID of agent)
 
-		@RESPONSE - data
+		@response - data
 	*/
 
 	fetch: async function(req, res) {
 
-		try{
-			await assertQueryParams(req.query, ['queueName','agentId'])
-
-			// Extract the body and query params //
-			const queueName = req.query.queueName
-			const agentId = req.query.agentId
-
-			var data = await req.db.collection(queueName).findOne({locked:{$in:[false,null]}})
-
-			// Lock the message to maintain exclusivity //
-			var obj = {
-				agentId: agentId,
-				locked: true,
-				lockedAt: new Date()
-			}
-			data = Object.assign(data, obj)
-
-			await req.db.collection(queueName).updateOne({_id:data._id}, {$set:obj})
-			
-			return res.json(data)
-		}
-		catch(err){
-			return res.status(400).json(err)
-		}
+		const response = await commands.fetchFromQueue(req)
+		return res.json(response)
 	},
 
 
@@ -66,7 +41,7 @@ module.exports = {
 
 		@GET /queue/delete
 
-		@PARAMS 	queueName 	(Name of the collection to insert data)
+		@param 		queueName 	(Name of the collection to insert data)
 					agentId		(UUID of agent)
 					_id 		(_id of the message to be deleted)
 	*/
