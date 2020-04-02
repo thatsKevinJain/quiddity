@@ -1,4 +1,5 @@
 const commands = require('../commands/index')
+const assertQueryParams = require('../services/assertQueryParams')
 
 module.exports = {
 
@@ -63,5 +64,33 @@ module.exports = {
 		catch(err){
 			return res.status(400).json(err)
 		}
-	}
+	},
+
+
+	/*
+		push message again to queue - 
+
+		@GET /queue/requeue
+
+		@param 		queueName 	(Name of the collection to update data)
+					_id 		(_id of the message to be push again)
+	*/	
+
+	requeue: async function(req, res) {
+		try {
+			// Extract the body and query params //
+			await assertQueryParams(req.query, ['queueName', '_id'])
+
+			const queueName = req.query.queueName
+			const _id = req.db.ObjectId(req.query._id)
+
+			let data = await req.db.collection(queueName).updateOne({ _id: _id }, { $unset: { agentId: "", lockedAt: "" }})		
+
+			return res.json(data)
+
+		} catch(err) {
+			return res.status(400).json(err)	
+		}
+	},
+
 }
