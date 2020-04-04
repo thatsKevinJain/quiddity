@@ -30,19 +30,17 @@ module.exports = async function(req){
 		// Add constant query params //
 		where = Object.assign(where, { lockedAt:{$exists:false} })
 
-		// Fetch the message based on query params //
-		const data = await req.db.collection(queueName).findOne(where)
-
 		// Lock the message to maintain exclusivity //
 		const lock = {
 			agentId: agentId,
 			lockedAt: new Date()
 		}
 
-		const response = await req.db.collection(queueName).updateOne({_id:data._id}, {$set:lock})
+		// Fetch the message based on query params //
+		const response = await req.db.collection(queueName).findOneAndUpdate(where, {$set:lock})
 
-		if(response && response.result.ok === 1 && response.modifiedCount === 1)
-			return data
+		if(response && response.ok === 1 && response.lastErrorObject.updatedExisting)
+			return response.value
 		else
 			throw { message: "MSG_FETCH_FAILED" }
 	}
