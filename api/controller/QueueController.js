@@ -13,8 +13,13 @@ module.exports = {
 	*/
 	add: async function(req, res) {
 
-		const response = await commands.pushToQueue(req)
-		return res.json(response)
+		try{
+			const response = await commands.pushToQueue(req)
+			return res.json(response)
+		}
+		catch(err){
+			return res.status(400).json(err)
+		}
 	},
 
 
@@ -32,8 +37,13 @@ module.exports = {
 
 	fetch: async function(req, res) {
 
-		const response = await commands.fetchFromQueue(req)
-		return res.json(response)
+		try{
+			const response = await commands.fetchFromQueue(req)
+			return res.json(response)
+		}
+		catch(err){
+			return res.status(400).json(err)
+		}
 	},
 
 
