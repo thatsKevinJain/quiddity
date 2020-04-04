@@ -40,6 +40,11 @@ module.exports = async function(req){
 
 	if(response && response.ok === 1 && response.lastErrorObject.updatedExisting)
 		return response.value
+
+	// The queue is empty //
+	else if(response && response.value == null)
+		return {}
+
 	else
 		throw { message: ERR_FAILED_TO_FETCH }
 }
