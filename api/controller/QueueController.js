@@ -57,7 +57,7 @@ module.exports = {
 			const agentId = req.query.agentId
 			const _id = req.db.ObjectId(req.query._id)
 
-			const data = await req.db.collection(queueName).removeOne({_id:_id})
+			const data = await req.db.collection(queueName).deleteOne({_id:_id, agentId: agentId })
 			
 			return res.json(data)
 		}
@@ -82,11 +82,19 @@ module.exports = {
 			await assertQueryParams(req.query, ['queueName', '_id'])
 
 			const queueName = req.query.queueName
-			const _id = req.db.ObjectId(req.query._id)
+			const _id = req.db.ObjectId(req.query._id)	
 
-			let data = await req.db.collection(queueName).updateOne({ _id: _id }, { $unset: { agentId: "", lockedAt: "" }})		
+			// requeue message only if processCount < threshold = 2.
+			let message = await req.db.collection(queueName).findOne({ _id: _id })
 
-			return res.json(data)
+			if (message && message.processCount && message.processCount < 2) {
+				message = await req.db.collection(queueName).findOneAndUpdate({ _id: _id }, { $inc: { processCount: 1 }, $unset: { agentId: "", lockedAt: "" }})
+			
+			} else if (message && !message.processCount ) {
+				message = await req.db.collection(queueName).findOneAndUpdate({ _id: _id }, { $set : {processCount: 1}, $unset: { agentId: "", lockedAt: "" }})
+			}
+
+			return res.json(message)
 
 		} catch(err) {
 			return res.status(400).json(err)	
