@@ -2,6 +2,4 @@
 	Get all the avaible DB Commands
 */
 
-const commands = require('require-all')(__dirname + '/')
-
-module.exports = commands
+module.exports = require('require-all')(__dirname + '/')
