@@ -8,13 +8,12 @@ module.exports = {
 
 		@POST /queue/add
 
-		@param 		queueName 	(Name of the collection to insert data)
-		@body 		data 		(Object containing message)
+		@param 		queueName 	(Name of the collection to insert payload)
+		@body 		payload 		(Object containing message)
 	*/
 	add: async function(req, res) {
-
 		try{
-			const response = await commands.pushToQueue(req)
+			const response = await commands.push(req)
 			return res.json(response)
 		}
 		catch(err){
@@ -29,16 +28,15 @@ module.exports = {
 
 		@POST /queue/fetch
 
-		@param 		queueName	(Name of the collection to insert data)
+		@param 		queueName	(Name of the collection to insert payload)
 				  	agentId 	(UUID of agent)
 
-		@response - data
+		@response - payload
 	*/
 
 	fetch: async function(req, res) {
-
 		try{
-			const response = await commands.fetchFromQueue(req)
+			const response = await commands.fetch(req)
 			return res.json(response)
 		}
 		catch(err){
@@ -52,29 +50,20 @@ module.exports = {
 
 		@GET /queue/delete
 
-		@param 		queueName 	(Name of the collection to insert data)
+		@param 		queueName 	(Name of the collection to insert payload)
 					agentId		(UUID of agent)
 					_id 		(_id of the message to be deleted)
 	*/
 
 	delete: async function(req, res) {
-
 		try{
-			// Extract the body and query params //
-			await assertQueryParams(req.query, ['queueName','agentId','_id'])
-
-			const queueName = req.query.queueName
-			const agentId = req.query.agentId
-			const _id = req.db.ObjectId(req.query._id)
-
-			const data = await req.db.collection(queueName).deleteOne({_id:_id, agentId: agentId })
-			
-			return res.json(data)
+			const response = await commands.delete(req)
+			return res.json(response)
 		}
 		catch(err){
 			return res.status(400).json(err)
 		}
-	},
+	}
 
 
 	/*
@@ -82,33 +71,33 @@ module.exports = {
 
 		@GET /queue/requeue
 
-		@param 		queueName 	(Name of the collection to update data)
+		@param 		queueName 	(Name of the collection to update payload)
 					_id 		(_id of the message to be push again)
 	*/	
 
-	requeue: async function(req, res) {
-		try {
-			// Extract the body and query params //
-			await assertQueryParams(req.query, ['queueName', '_id'])
+	// requeue: async function(req, res) {
+	// 	try {
+	// 		// Extract the body and query params //
+	// 		await assertQueryParams(req.query, ['queueName', '_id'])
 
-			const queueName = req.query.queueName
-			const _id = req.db.ObjectId(req.query._id)	
+	// 		const queueName = req.query.queueName
+	// 		const _id = req.db.ObjectId(req.query._id)	
 
-			// requeue message only if processCount < threshold = 2.
-			let message = await req.db.collection(queueName).findOne({ _id: _id })
+	// 		// requeue message only if processCount < threshold = 2.
+	// 		let message = await req.db.collection(queueName).findOne({ _id: _id })
 
-			if (message && message.processCount && message.processCount < 2) {
-				message = await req.db.collection(queueName).findOneAndUpdate({ _id: _id }, { $inc: { processCount: 1 }, $unset: { agentId: "", lockedAt: "" }})
+	// 		if (message && message.processCount && message.processCount < 2) {
+	// 			message = await req.db.collection(queueName).findOneAndUpdate({ _id: _id }, { $inc: { processCount: 1 }, $unset: { agentId: "", lockedAt: "" }})
 			
-			} else if (message && !message.processCount ) {
-				message = await req.db.collection(queueName).findOneAndUpdate({ _id: _id }, { $set : {processCount: 1}, $unset: { agentId: "", lockedAt: "" }})
-			}
+	// 		} else if (message && !message.processCount ) {
+	// 			message = await req.db.collection(queueName).findOneAndUpdate({ _id: _id }, { $set : {processCount: 1}, $unset: { agentId: "", lockedAt: "" }})
+	// 		}
 
-			return res.json(message)
+	// 		return res.json(message)
 
-		} catch(err) {
-			return res.status(400).json(err)	
-		}
-	},
+	// 	} catch(err) {
+	// 		return res.status(400).json(err)
+	// 	}
+	// },
 
 }
