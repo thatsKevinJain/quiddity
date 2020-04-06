@@ -22,7 +22,7 @@ module.exports = async function(req){
 	// Push to queue //
 	const response = await req.db.collection(queueName).insertOne(body)
 
-	if(response && response.result.ok === 1 && response.insertedCount === 1)
+	if(response && response.insertedCount === 1)
 		return {}
 	else
 		throw { message: "Failed to push message" }

@@ -1,5 +1,4 @@
 const commands = require('../commands/index')
-const assertQueryParams = require('../services/assertQueryParams')
 
 module.exports = {
 
@@ -40,6 +39,7 @@ module.exports = {
 			return res.json(response)
 		}
 		catch(err){
+			console.log(err)
 			return res.status(400).json(err)
 		}
 	},

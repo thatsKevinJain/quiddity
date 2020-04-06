@@ -12,7 +12,7 @@
 
 const utils = require('../services/utils')
 
-const MESSAGE_EXPIRY_TIME = process.env.MESSAGE_EXPIRY_TIME || 300000
+const MESSAGE_EXPIRY_TIME = process.env.MESSAGE_EXPIRY_TIME || 60000
 const MAX_PROCESS_COUNT = process.env.MAX_PROCESS_COUNT || 5
 
 module.exports = async function(req){
@@ -29,27 +29,29 @@ module.exports = async function(req){
 	/*
 		Fetch messages that satisfy below criteria -
 		-	processCount <= MAX_PROCESS_COUNT
-		-	[(expiryTime == null) || (expiryTime > NOW)]
-			Basically don't fetch expired messages
+		-	[(expiryTime == null) || (expiryTime < NOW)]
+		
+		We will fetch those messages that have expired,
+		AND the ones that have never been locked before.
 	*/
 	where = Object.assign(where, {
-		processCount:{$lt: MAX_PROCESS_COUNT},
 		$or:[
 			{expiryTime:{$exists:false}},
-			{expiryTime:{$gte: new Date()}}
-		]
+			{expiryTime:{$lt: new Date()}}
+		],
+		processCount:{$lt: MAX_PROCESS_COUNT},
 	})
 
 	// Lock the message to maintain exclusivity //
 	const lock = {
 		agentId: agentId,
-		expiryTime: utils.expiryTime(MESSAGE_EXPIRY_TIME)
+		expiryTime: utils.getExpiryTime(MESSAGE_EXPIRY_TIME)
 	}
 
 	// Fetch the message based on query params //
 	const response = await req.db.collection(queueName).findOneAndUpdate(where, {$set:lock, $inc:{processCount:1}})
 
-	if(response && response.ok === 1 && response.lastErrorObject.updatedExisting)
+	if(response && response.lastErrorObject.updatedExisting)
 		return response.value
 
 	// The queue is empty //
