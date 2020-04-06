@@ -24,7 +24,7 @@ module.exports = async function(req){
 	const agentId = req.query.agentId
 
 	// Fetch queue messages based on query params //
-	var where = (req && req.body && req.body.where) ? Object.assign({},{payload:req.body.where}) : {}
+	var where = (req && req.body && req.body.where) ? Object.assign({},req.body.where) : {}
 
 	/*
 		Fetch messages that satisfy below criteria -
