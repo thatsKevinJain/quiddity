@@ -9,7 +9,7 @@ const port = process.env.PORT || 3000
 app.use(express.json())
 // for parsing application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }))
-// To use mongodb anywhere in program, use this mongo middleware //
+// This middleware will attach a mongodb instance to req object //
 app.use(require('./middleware/mongoMiddleware'))
 
 // Add all routes //
@@ -21,5 +21,5 @@ mongo.getDb()
 	app.listen(port, () => console.log(`Quiddity listening on port ${port}!`))
 })
 .catch((err) => {
-	console.log(`Error connecting to MongoDb`)
+	console.log("Error connecting to MongoDb")
 })
