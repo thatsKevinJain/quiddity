@@ -64,40 +64,4 @@ module.exports = {
 			return res.status(400).json(err)
 		}
 	}
-
-
-	/*
-		push message again to queue - 
-
-		@GET /queue/requeue
-
-		@param 		queueName 	(Name of the collection to update payload)
-					_id 		(_id of the message to be push again)
-	*/	
-
-	// requeue: async function(req, res) {
-	// 	try {
-	// 		// Extract the body and query params //
-	// 		await assertQueryParams(req.query, ['queueName', '_id'])
-
-	// 		const queueName = req.query.queueName
-	// 		const _id = req.db.ObjectId(req.query._id)	
-
-	// 		// requeue message only if processCount < threshold = 2.
-	// 		let message = await req.db.collection(queueName).findOne({ _id: _id })
-
-	// 		if (message && message.processCount && message.processCount < 2) {
-	// 			message = await req.db.collection(queueName).findOneAndUpdate({ _id: _id }, { $inc: { processCount: 1 }, $unset: { agentId: "", lockedAt: "" }})
-			
-	// 		} else if (message && !message.processCount ) {
-	// 			message = await req.db.collection(queueName).findOneAndUpdate({ _id: _id }, { $set : {processCount: 1}, $unset: { agentId: "", lockedAt: "" }})
-	// 		}
-
-	// 		return res.json(message)
-
-	// 	} catch(err) {
-	// 		return res.status(400).json(err)
-	// 	}
-	// },
-
 }

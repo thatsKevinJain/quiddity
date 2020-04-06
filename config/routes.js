@@ -8,6 +8,5 @@ module.exports = {
 		fetch: ['post'],
 		delete: ['get'],
 		add: ['post']
-		// requeue: ['get']
 	}
 }
