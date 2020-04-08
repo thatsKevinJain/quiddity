@@ -1,13 +1,10 @@
 /**
 	Delete a message from the queue on completion
-
-	A message from to the queue will have the following properties - 
-	-	data			(Object containing the message)
-	-	createdAt		(Timestamp of the message)
-	-	agentId			(UUID of the agent consuming the message)
-	-	expiryTime		(Time when the message will expire)
-	-	processCount	(Number of times the message is processed)
-	-	_id				(MongoDB ObjectId)
+	
+	It matches the following properties -
+	-	_id			(ObjectId of the message)
+	-	agentId		(UUID of the agent)
+	-	queueName 	(Name of the collection)
 */
 
 const utils = require('../services/utils')
