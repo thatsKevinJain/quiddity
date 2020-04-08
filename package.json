@@ -9,14 +9,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://gitlab.com/thatskevinjain/quiddity.git"
+    "url": "git+https://github.com/thatsKevinJain/quiddity.git"
   },
   "author": "Kevin Jain",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
-    "url": "https://gitlab.com/thatskevinjain/quiddity/issues"
+    "url": "https://github.com/thatsKevinJain/quiddity/issues"
   },
-  "homepage": "https://gitlab.com/thatskevinjain/quiddity#README",
+  "keywords":[
+    "queue","mongodb"
+  ],
+  "homepage": "https://github.com/thatsKevinJain/quiddity#README",
   "dependencies": {
     "express": "^4.17.1",
     "mongodb": "^3.3.2"
