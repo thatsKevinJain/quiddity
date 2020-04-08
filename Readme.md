@@ -1,6 +1,6 @@
 <div align="center">
   <br/>
-  <img src="./logo.png" width="300" />
+  <img src="./logo.png" width="500" />
   <br/>
   <br/>
   <p>
@@ -12,10 +12,9 @@
 ---
 ### How it works
 
-**Quiddity** is a simple server that connects to MongoDB and exposes few APIs like __*push*__, __*fetch*__ & __*delete*__.
-A seperate light-weight agent consumes these APIs and allows the user to push/pull messages from the queue.
-
-The user can also have multiple agents working on the queue.
+- **Quiddity** is a simple server that connects to MongoDB and exposes few APIs like __*push*__, __*fetch*__ & __*delete*__.
+- A seperate light-weight agent consumes these APIs and allows the user to push/pull messages from the queue.
+- The user can also have multiple agents working on the queue.
 
 ---
 ### How to setup the server
