@@ -51,4 +51,8 @@ You can also pass the following enviornment variables to configure the server.
 	- If the agent crashes or takes too long to acknowledge the job completion, the message is marked expired and put back into the queue.
 	- Developers can extend this __*expiry time*__ if their messages take longer to process.
 
+---
+## Collaborators
 
+* **Kevin Jain** - [GitHub](https://github.com/thatsKevinJain)
+* **Moksh Jain** - [GitHub](https://github.com/mokshhh22)
