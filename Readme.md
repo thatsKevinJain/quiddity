@@ -52,7 +52,6 @@ You can also pass the following enviornment variables to configure the server.
 	- Developers can extend this __*expiry time*__ if their messages take longer to process.
 
 ---
-## Collaborators
-
+#### Collaborators
 * **Kevin Jain** - [GitHub](https://github.com/thatsKevinJain)
 * **Moksh Jain** - [GitHub](https://github.com/mokshhh22)
