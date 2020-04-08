@@ -4,7 +4,7 @@
   <br/>
   <br/>
   <p>
-    Simple queue server that uses MongoDB to store messages.
+    Simple queue server that uses MongoDB to store messages
   </p>
   <br/>
 </div>
@@ -13,14 +13,18 @@
 ### How it works
 
 **Quiddity** is a simple server that connects to MongoDB and exposes few APIs (push, fetch, delete...)
-A seperate agent consumes these APIs that will allow the user to push and pull messages from the queue.
+A seperate light-weight agent consumes these APIs and allows the user to push/pull messages from the queue.
 
-The user can also have multiple producers and consumers of the queue.
+The user can also have multiple agents working on the queue.
 
 ---
 ### How to setup the server
-Clone the __master__ branch of this repo and run
+Clone the __master__ branch of this repo
+```
+git clone --single-branch -b master https://github.com/thatsKevinJain/quiddity.git
+```
 
+Then run the start script -
 ```
 npm start
 ```
