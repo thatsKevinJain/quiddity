@@ -12,7 +12,7 @@
 ---
 ### How it works
 
-**Quiddity** is a simple server that connects to MongoDB and exposes few APIs (push, fetch, delete...)
+**Quiddity** is a simple server that connects to MongoDB and exposes few APIs like __*push*__, __*fetch*__ & __*delete*__.
 A seperate light-weight agent consumes these APIs and allows the user to push/pull messages from the queue.
 
 The user can also have multiple agents working on the queue.
@@ -42,9 +42,10 @@ You can also pass the following enviornment variables to configure the server.
 - `MAX_PROCESS_COUNT`
 	- Quiddity follows a __*atleast once*__ policy while processing messages.
 	- This means your message can be processed more than once if the agent/worker fails to acknowledge the message.
+  - Developers can set this count as **1** if they want to process their message only once.
 
 - `MESSAGE_EXPIRY_TIME`
-	- Time set after which the message will expire and will be added to queue again. (If not acknowledged via agent)
+	- If the agent crashes or takes too long to acknowledge the job completion, the message is marked expired and put back into the queue.
 	- Developers can extend this __*expiry time*__ if their messages take longer to process.
 
 
