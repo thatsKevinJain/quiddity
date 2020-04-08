@@ -4,6 +4,7 @@
   "description": "Simple Queue Service that uses MongoDb to store messages",
   "main": "app.js",
   "scripts": {
+    "prestart":"npm install",
     "start": "node app.js"
   },
   "repository": {

@@ -12,9 +12,8 @@
 ---
 ### How it works
 
-<div align="center">
-  <br/>
-  <img src="./assets/workflow.png" width="300" />
+<div align="left">
+  <img src="./assets/workflow.png" width="400" />
 </div>
 
 - **Quiddity** is a simple server that connects to MongoDB and exposes few APIs like __*push*__, __*fetch*__ & __*delete*__.
