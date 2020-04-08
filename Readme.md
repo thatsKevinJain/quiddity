@@ -52,6 +52,11 @@ You can also pass the following enviornment variables to configure the server.
 	- Developers can extend this __*expiry time*__ if their messages take longer to process.
 
 ---
+### How to setup the agent/worker
+You can use the following NPM library to setup the agent, check the documentation for implementation.
+[quiddity-agent](https://www.npmjs.com/package/quiddity-agent)
+
+---
 #### Collaborators
 * **Kevin Jain** - [GitHub](https://github.com/thatsKevinJain)
 * **Moksh Jain** - [GitHub](https://github.com/mokshhh22)
