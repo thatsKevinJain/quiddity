@@ -4,7 +4,7 @@
   "description": "Simple Queue Service that uses MongoDb to store messages",
   "main": "app.js",
   "scripts": {
-    "prestart":"npm install",
+    "prestart": "npm install",
     "start": "node app.js"
   },
   "repository": {
@@ -16,8 +16,9 @@
   "bugs": {
     "url": "https://github.com/thatsKevinJain/quiddity/issues"
   },
-  "keywords":[
-    "queue","mongodb"
+  "keywords": [
+    "queue",
+    "mongodb"
   ],
   "homepage": "https://github.com/thatsKevinJain/quiddity#README",
   "dependencies": {

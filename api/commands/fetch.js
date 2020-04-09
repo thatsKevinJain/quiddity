@@ -39,7 +39,7 @@ module.exports = async function(req){
 			{expiryTime:{$exists:false}},
 			{expiryTime:{$lt: new Date()}}
 		],
-		processCount:{$lt: MAX_PROCESS_COUNT},
+		processCount:{$lte: MAX_PROCESS_COUNT},
 	})
 
 	// Lock the message to maintain exclusivity //
@@ -49,7 +49,7 @@ module.exports = async function(req){
 	}
 
 	// Fetch the message based on query params //
-	const response = await req.db.collection(queueName).findOneAndUpdate(where, {$set:lock, $inc:{processCount:1}})
+	const response = await req.db.collection(queueName).findOneAndUpdate(where, {$set:lock, $inc:{processCount:1}}, {sort:{_id:1}})
 
 	if(response && response.lastErrorObject.updatedExisting)
 		return response.value
