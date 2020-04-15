@@ -7,6 +7,7 @@ module.exports = {
 	Queue: {
 		fetch: ['post'],
 		delete: ['get'],
-		add: ['post']
+		add: ['post'],
+		purge: ['get']
 	}
 }

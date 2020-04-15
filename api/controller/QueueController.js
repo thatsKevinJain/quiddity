@@ -63,5 +63,23 @@ module.exports = {
 		catch(err){
 			return res.status(400).json(err)
 		}
+	},
+
+	/*
+		Delete all messages from queue - 
+
+		@GET /queue/purge
+
+		@param	queueName	(Name of the collection to insert payload)
+	*/
+
+	purge: async function(req, res) {
+		try{
+			const response = await commands.purge(req)
+			return res.json(response)
+		}
+		catch(err){
+			return res.status(400).json(err)
+		}
 	}
 }
