@@ -81,5 +81,23 @@ module.exports = {
 		catch(err){
 			return res.status(400).json(err)
 		}
+	},
+
+	/*
+		Fetch all dead messages from queue -
+
+		@GET /queue/fetchDead
+
+		@param	queueName	(Name of the collection to insert payload)
+	*/
+
+	fetchDead: async function(req, res) {
+		try{
+			const response = await commands.fetchDead(req)
+			return res.json(response)
+		}
+		catch(err){
+			return res.status(400).json(err)
+		}
 	}
 }

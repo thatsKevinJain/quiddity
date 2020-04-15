@@ -12,7 +12,7 @@
 
 const utils = require('../services/utils')
 
-const MESSAGE_EXPIRY_TIME = process.env.MESSAGE_EXPIRY_TIME || 300000
+const MESSAGE_EXPIRY_TIME = process.env.MESSAGE_EXPIRY_TIME || 1000
 const MAX_PROCESS_COUNT = process.env.MAX_PROCESS_COUNT || 2
 
 module.exports = async function(req){
@@ -28,7 +28,7 @@ module.exports = async function(req){
 
 	/*
 		Fetch messages that satisfy below criteria -
-		-	processCount <= MAX_PROCESS_COUNT
+		-	processCount < MAX_PROCESS_COUNT
 		-	[(expiryTime == null) || (expiryTime < NOW)]
 		
 		We will fetch those messages that have expired,
@@ -39,7 +39,7 @@ module.exports = async function(req){
 			{expiryTime:{$exists:false}},
 			{expiryTime:{$lt: new Date()}}
 		],
-		processCount:{$lte: MAX_PROCESS_COUNT},
+		processCount:{$lt: MAX_PROCESS_COUNT},
 	})
 
 	// Lock the message to maintain exclusivity //
