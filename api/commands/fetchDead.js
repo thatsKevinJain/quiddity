@@ -15,7 +15,7 @@
 
 const utils = require('../services/utils')
 
-const MAX_PROCESS_COUNT = process.env.MAX_PROCESS_COUNT || 2
+const MAX_PROCESS_COUNT = parseInt(process.env.MAX_PROCESS_COUNT) || 2
 
 module.exports = async function(req){
 

@@ -12,8 +12,8 @@
 
 const utils = require('../services/utils')
 
-const MESSAGE_EXPIRY_TIME = process.env.MESSAGE_EXPIRY_TIME || 1000
-const MAX_PROCESS_COUNT = process.env.MAX_PROCESS_COUNT || 2
+const MESSAGE_EXPIRY_TIME = parseInt(process.env.MESSAGE_EXPIRY_TIME) || 300000
+const MAX_PROCESS_COUNT = parseInt(process.env.MAX_PROCESS_COUNT) || 2
 
 module.exports = async function(req){
 
