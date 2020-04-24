@@ -17,14 +17,14 @@ const MAX_PROCESS_COUNT = parseInt(process.env.MAX_PROCESS_COUNT) || 2
 
 module.exports = async function(req){
 
-	await utils.assertQueryParams(req.query, ['queueName','agentId'])
+	await utils.assertQueryParams(req.query ? req.query : {}, ['queueName','agentId'])
 
 	// Extract the body and query params //
 	const queueName = req.query.queueName
 	const agentId = req.query.agentId
 
 	// Fetch queue messages based on query params //
-	var where = (req && req.body && req.body.where) ? Object.assign({},req.body.where) : {}
+	var where = (req && req.body && req.body.where) ? Object.assign({}, req.body.where) : {}
 
 	/*
 		Fetch messages that satisfy below criteria -

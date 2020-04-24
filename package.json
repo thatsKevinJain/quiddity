@@ -5,11 +5,15 @@
   "main": "app.js",
   "scripts": {
     "prestart": "npm install",
-    "start": "node app.js"
+    "start": "node app.js",
+    "test": "mocha --recursive --exit"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/thatsKevinJain/quiddity.git"
+  },
+  "directories": {
+    "test": "test"
   },
   "author": "Kevin Jain",
   "license": "MIT",
@@ -24,5 +28,9 @@
   "dependencies": {
     "express": "^4.17.1",
     "mongodb": "^3.3.2"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^7.1.1"
   }
 }
