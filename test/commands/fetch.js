@@ -5,7 +5,12 @@ const mongo = require('../../driver/mongoDriver')
 
 describe('FETCH', function(){
 
-	const body = { foo: "bar", name: "kevin" }
+	const body = {
+			payload: {
+				foo: "bar",
+				name: "kevin"
+			}
+		}
 
 	beforeEach(function (done) {
 		mongo.getDb()
