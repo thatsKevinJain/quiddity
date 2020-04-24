@@ -11,19 +11,22 @@ const utils = require('../services/utils')
 
 module.exports = async function(req){
 
-	await utils.assertQueryParams(req.query, ['queueName'])
+	await utils.assertQueryParams(req.query ? req.query : {}, ['queueName'])
 
 	// Extract the query params //
 	const queueName = req.query.queueName
 
-	// Create a message object //
-	const body = Object.assign({}, req.body, {createdAt: new Date(), processCount: 0})
+	// Create a payload //
+	if(req && req.body && Object.keys(req.body).length != 0)
+		var body = Object.assign({}, {payload:req.body}, {createdAt: new Date(), processCount: 0})
+	else
+		throw { message: "Empty payload cannot be added" }
 
 	// Push to queue //
 	const response = await req.db.collection(queueName).insertOne(body)
 
 	if(response && response.insertedCount === 1)
-		return {}
+		return response.ops
 	else
 		throw { message: "Failed to push message" }
 }

@@ -10,7 +10,7 @@ const utils = require('../services/utils')
 module.exports = async function(req){
 
 	// Extract the body and query params //
-	await utils.assertQueryParams(req.query, ['queueName'])
+	await utils.assertQueryParams(req.query ? req.query : {}, ['queueName'])
 
 	// Extract the body and query params //
 	const queueName = req.query.queueName
