@@ -23,7 +23,14 @@ module.exports = async function(req){
 	const queueName = req.query.queueName
 	const agentId = req.query.agentId
 
-	// Fetch queue messages based on query params //
+	/*
+		User can also pass a "where" clause which can filter queue
+		messages based on query params passed.
+
+		User can pass basic MongoDB "find" query parameters.
+		Check the documentation to understand how you can use this feature.
+		 - https://docs.mongodb.com/manual/reference/method/db.collection.find/#definition
+	*/
 	var where = {}
 	if(req && req.body && req.body.where){
 		where = utils.getQueryParams(req.body.where)
