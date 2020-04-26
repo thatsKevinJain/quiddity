@@ -24,8 +24,11 @@ module.exports = async function(req){
 	const agentId = req.query.agentId
 
 	// Fetch queue messages based on query params //
-	var where = (req && req.body && req.body.where) ? Object.assign({}, req.body.where) : {}
-
+	var where = {}
+	if(req && req.body && req.body.where){
+		where = utils.getQueryParams(req.body.where)
+	}
+	
 	/*
 		Fetch messages that satisfy below criteria -
 		-	processCount < MAX_PROCESS_COUNT
