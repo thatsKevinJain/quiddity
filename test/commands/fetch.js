@@ -65,6 +65,7 @@ describe('FETCH', function(){
 			expect(res).to.have.property('createdAt')
 			expect(res).to.have.property('_id')
 			expect(res).to.have.property('payload')
+			expect(res).to.have.property('expiryTime')
 			done()
 		})
 		.catch((err) => {

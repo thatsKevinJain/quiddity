@@ -54,6 +54,7 @@ describe('PUSH', function(){
 			// console.log(res)
 			expect(res).to.have.length(1)
 			expect(res[0]).to.have.property('processCount', 0)
+			expect(res[0]).to.have.property('expiryTime')
 			expect(res[0]).to.have.property('createdAt')
 			expect(res[0]).to.have.property('payload', body.payload)
 			done()

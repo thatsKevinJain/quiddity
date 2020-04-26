@@ -5,6 +5,7 @@
 	-	payload			(Object containing the message)
 	-	createdAt		(Timestamp of the message)
 	-	processCount	(Number of times the message is processed)
+	-	expiryTime		(Time when the message will expire)
 */
 
 const utils = require('../services/utils')
@@ -18,7 +19,7 @@ module.exports = async function(req){
 
 	// Create a payload //
 	if(req && req.body && req.body.payload && Object.keys(req.body.payload).length != 0)
-		var body = Object.assign({}, req.body, {createdAt: new Date(), processCount: 0})
+		var body = Object.assign({}, req.body, {createdAt: new Date(), processCount: 0, expiryTime: new Date(0)})
 	else
 		throw { message: "Empty payload cannot be added" }
 

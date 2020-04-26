@@ -29,17 +29,14 @@ module.exports = async function(req){
 	/*
 		Fetch messages that satisfy below criteria -
 		-	processCount < MAX_PROCESS_COUNT
-		-	[(expiryTime == null) || (expiryTime < NOW)]
-		
+		-	expiryTime < NOW)
+
 		We will fetch those messages that have expired,
-		AND the ones that have never been locked before.
+		AND the ones that were never processed before.
 	*/
 	where = Object.assign(where, {
-		$or:[
-			{expiryTime:{$exists:false}},
-			{expiryTime:{$lt: new Date()}}
-		],
-		processCount:{$lt: MAX_PROCESS_COUNT},
+		expiryTime:{$lt: new Date()},
+		processCount:{$lt: MAX_PROCESS_COUNT}
 	})
 
 	// Lock the message to maintain exclusivity //
