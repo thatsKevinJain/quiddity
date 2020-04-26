@@ -18,8 +18,8 @@ module.exports = async function(req){
 	const queueName = req.query.queueName
 
 	// Create a payload //
-	if(req && req.body && req.body.payload && Object.keys(req.body.payload).length != 0)
-		var body = Object.assign({}, req.body, {createdAt: new Date(), processCount: 0, expiryTime: new Date(0)})
+	if(req && req.body && Object.keys(req.body).length != 0)
+		var body = Object.assign({}, {payload: req.body}, {createdAt: new Date(), processCount: 0, expiryTime: new Date(0)})
 	else
 		throw { message: "Empty payload cannot be added" }
 

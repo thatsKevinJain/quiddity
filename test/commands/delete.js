@@ -6,12 +6,7 @@ const mongo = require('../../driver/mongoDriver')
 
 describe('DELETE', function(){
 
-	const body = {
-		payload: {
-			foo: "bar",
-			name: "kevin"
-		}
-	}
+	const body = { foo: "bar", name: "kevin" }
 
 	beforeEach(function (done) {
 		mongo.getDb()

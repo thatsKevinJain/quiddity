@@ -31,12 +31,7 @@ describe('PUSH', function(){
 
 	it('should push a message in the queue', function(done){
 
-		const body = {
-				payload: {
-					foo: "bar",
-					name: "kevin"
-				}
-			}
+		const body = { foo: "bar", name: "kevin" }
 
 		mongo.getDb()
 		.then((db) => {
@@ -56,7 +51,7 @@ describe('PUSH', function(){
 			expect(res[0]).to.have.property('processCount', 0)
 			expect(res[0]).to.have.property('expiryTime')
 			expect(res[0]).to.have.property('createdAt')
-			expect(res[0]).to.have.property('payload', body.payload)
+			expect(res[0]).to.have.property('payload', body)
 			done()
 		})
 		.catch((err) => {
