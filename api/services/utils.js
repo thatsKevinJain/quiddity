@@ -52,7 +52,7 @@ module.exports = {
 
 			// If the operator's value is an object 
 			if(isObject(where[key]))
-				result[finalKey] = getQueryParams(where[key])
+				result[finalKey] = this.getQueryParams(where[key])
 
 			// If keys value is an array
 			else if(isArray(where[key])){
@@ -61,7 +61,7 @@ module.exports = {
 
 					// If keys value is an object, recursively call the function again //
 					if(isObject(where[key][index])){
-						return getQueryParams(where[key][index])
+						return this.getQueryParams(where[key][index])
 					}
 					else
 						return where[key][index]
