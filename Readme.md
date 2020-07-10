@@ -57,6 +57,14 @@ You can use the following NPM library to setup the agent, check the documentatio
 [quiddity-agent](https://www.npmjs.com/package/quiddity-agent)
 
 ---
+### Benchmarking
+`push` and `pull` commands were tested on -   
+`NodeJS v12.18.0` | `MacOS v10.15` | `8GB RAM` | `1.6GHz DualCore Intel i5`
+<div align="left">
+  <img src="./assets/quiddity-benchmark.png" width="500" />
+</div>
+
+---
 #### Collaborators
 * **Kevin Jain** - [GitHub](https://github.com/thatsKevinJain)
 * **Moksh Jain** - [GitHub](https://github.com/mokshhh22)
