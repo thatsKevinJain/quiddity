@@ -22,6 +22,12 @@
 
 ---
 ### How to setup the server
+#### Docker
+```
+docker run -d --name quiddity -p 3000:3000 --env MONGO_URL="<URL>" kevinjain/quiddity:1.0.0
+```
+
+#### Manually
 Clone the __master__ branch of this repo
 ```
 git clone --single-branch -b master https://github.com/thatsKevinJain/quiddity.git
