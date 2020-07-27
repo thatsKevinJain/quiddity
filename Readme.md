@@ -65,7 +65,7 @@ You can use the following NPM library to setup the agent, check the documentatio
 ---
 ### Benchmarking
 `push` and `pull` commands were tested on -   
-`NodeJS v12.18.0` | `MacOS v10.15` | `8GB RAM` | `1.6GHz DualCore Intel i5`
+`NodeJS v12.18.0` | `MongoDB v4.2` | `MacOS v10.15` | `8GB RAM` | `1.6GHz DualCore Intel i5`
 <div align="left">
   <img src="./assets/quiddity-benchmark.png" width="500" />
 </div>
