@@ -26,7 +26,7 @@
   ],
   "homepage": "https://github.com/thatsKevinJain/quiddity#README",
   "dependencies": {
-    "express": "^4.17.1",
+    "express": "^4.18.2",
     "mongodb": "^3.3.2"
   },
   "devDependencies": {
